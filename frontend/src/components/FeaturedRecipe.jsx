@@ -53,7 +53,7 @@ const FeaturedRecipe = ({recipes, setFeaturedRecipe, featuredRecipe}) => {
       };
     
       return (
-        <div style={recipeStyle} onClick={handleFeaturedClick}>
+        <div style={recipeStyle} onClick={handleFeaturedClick} >
           {featuredRecipe && (
             <>
               <img src={featuredRecipe.image_url} alt={featuredRecipe.name} style={imageStyle} />

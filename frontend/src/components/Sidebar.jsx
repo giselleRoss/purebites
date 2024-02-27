@@ -23,16 +23,20 @@ const items = [
   getItem('Favorites', '3', <HeartTwoTone twoToneColor="#52c41a"/>),
 ];
 
-const Sidebar = () => {
+const Sidebar = ({ handleButtonClick }) => {
   const [collapsed, setCollapsed] = useState(false);
+
   const toggleCollapsed = () => {
     setCollapsed(!collapsed);
   };
+
   const handleMenuClick = (item) => {
-    onselectionchange(item.type);
-  }
+    handleButtonClick(item.type);
+  };
+
   return (
-    <div className='menu-bar'
+    <div
+      className='menu-bar'
       style={{
         width: 256,
       }}
@@ -52,7 +56,13 @@ const Sidebar = () => {
         mode="inline"
         theme="dark"
         inlineCollapsed={collapsed}
-      />
+      >
+        {items.map((item) => (
+          <Menu.Item key={item.key} icon={item.icon} onClick={() => handleMenuClick(item)}>
+            {item.label}
+          </Menu.Item>
+        ))}
+      </Menu>
     </div>
   );
 };

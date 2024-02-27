@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
 import Sidebar from './components/Sidebar';
+import Footer from './components/Footer';
 import CreateRecipeForm from './components/CreateRecipeForm';
 import RecipeList from './components/RecipeList';
 import './App.css';
+import Header from "./components/Header"
 import FeaturedRecipe from './components/FeaturedRecipe'
 
 function App() {
@@ -32,12 +34,22 @@ function App() {
     }
   };
 
+  const handleButtonClick = (buttonName) => {
+    // Handle button click logic
+    console.log(`Button Clicked: ${buttonName}`);
+  };
+
   return (
-    <>
-      <div className='featured'>
-        <FeaturedRecipe recipes={recipes} setFeaturedRecipe={setFeaturedRecipe} featuredRecipe={featuredRecipe} />
+    <div className="app-container">
+      <Header />
+      <div className="content-container">
+        <Sidebar className="sidebar" handleButtonClick={handleButtonClick} />
+        <div className="featured-recipe-container">
+          <FeaturedRecipe recipes={recipes} setFeaturedRecipe={setFeaturedRecipe} featuredRecipe={featuredRecipe} />
+        </div>
       </div>
-    </>
+      <Footer />
+    </div>
   );
 }
 
