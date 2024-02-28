@@ -7,7 +7,7 @@ import {
   Button
 } from "reactstrap";
 
-const RecipeDetails = ({featuredRecipe, setFeaturedClicked, handleHomeClick}) => {
+const RecipeDetails = ({featuredRecipe, handleHomeClick}) => {
 
   let list = (
     <div>

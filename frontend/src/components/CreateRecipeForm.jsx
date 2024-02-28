@@ -1,31 +1,28 @@
 import { useState } from 'react';
 import { Button, Col, Form, FormGroup, Input, Label, Row } from 'reactstrap';
 
-const RecipeForm = () => {
-  const [formData, setFormData] = useState({
-    recipeName: '',
-    calories: '',
+const RecipeForm = ({createRecipe}) => {
+  const [newRecipe, setNewRecipe] = useState({
+    name: '',
+    calories: '' ,
     allergens: '',
     ingredients: [''],
     instructions: '',
     imageUrl: '',
-  });
+  })
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+    setNewRecipe({...newRecipe, [e.target.name]: e.target.value})
   };
 
   const handleSubmit = () => {
-    // Handle form submission logic here
-    console.log(formData);
+    createRecipe(newRecipe)
   };
 
   return (
-    <Form>
+    <div>
+
+      <Form style={{ padding: '20px' }}>
       <Row>
         <Col md={6}>
           <FormGroup>
@@ -35,7 +32,7 @@ const RecipeForm = () => {
               name="recipeName"
               placeholder="Enter Recipe Name"
               type="text"
-              value={formData.recipeName}
+              value={newRecipe.recipeName}
               onChange={handleChange}
             />
           </FormGroup>
@@ -48,7 +45,7 @@ const RecipeForm = () => {
               name="calories"
               placeholder="Enter Calories"
               type="text"
-              value={formData.calories}
+              value={newRecipe.calories}
               onChange={handleChange}
             />
           </FormGroup>
@@ -61,7 +58,7 @@ const RecipeForm = () => {
           name="allergens"
           placeholder="Enter Allergens"
           type="text"
-          value={formData.allergens}
+          value={newRecipe.allergens}
           onChange={handleChange}
         />
       </FormGroup>
@@ -72,7 +69,7 @@ const RecipeForm = () => {
           name="ingredients"
           placeholder="Enter Ingredients"
           type="text"
-          value={formData.ingredients}
+          value={newRecipe.ingredients}
           onChange={handleChange}
         />
       </FormGroup>
@@ -83,7 +80,7 @@ const RecipeForm = () => {
           name="instructions"
           placeholder="Enter Instructions"
           type="text"
-          value={formData.instructions}
+          value={newRecipe.instructions}
           onChange={handleChange}
         />
       </FormGroup>
@@ -94,12 +91,13 @@ const RecipeForm = () => {
           name="imageUrl"
           placeholder="Enter Image URL"
           type="text"
-          value={formData.imageUrl}
+          value={newRecipe.imageUrl}
           onChange={handleChange}
         />
       </FormGroup>
       <Button onClick={handleSubmit}>Submit</Button>
     </Form>
+    </div>
   );
 };
 

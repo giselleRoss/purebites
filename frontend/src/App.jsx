@@ -7,13 +7,15 @@ import Header from "./components/Header";
 import FeaturedRecipe from "./components/FeaturedRecipe";
 import RecipeList from "./components/RecipeList";
 import RecipeDetails from "./components/RecipeDetails";
+import CreateRecipeForm from "./components/CreateRecipeForm"
 
 function App() {
   const [recipes, setRecipes] = useState([]);
   const [singleRecipe, setSingleRecipe] = useState(null);
-  const [errorMessage, setErrorMessage] = useState(false);
+  const [showCreateRecipeForm, setShowCreateRecipeForm] = useState(false);
   const [featuredRecipe, setFeaturedRecipe] = useState(null);
   const [featuredClicked, setFeaturedClicked] = useState(false);
+  const [showRecipeList, setShowRecipeList] = useState(false); 
 
 
   useEffect(() => {
@@ -48,6 +50,10 @@ function App() {
     }
   };
 
+  const createRecipe = (recipe) => {
+
+  }
+
   const handleFeaturedClick = () => {
     setFeaturedClicked(true);
   };
@@ -55,7 +61,54 @@ function App() {
   const handleHomeClick = () => {
     setFeaturedClicked(false);
   };
+  const handleMenuClick = (item) => {
+    if (item.key === '1') {
+      console.log('See all recipes clicked');
+      setShowRecipeList(true);
+      setFeaturedClicked(false);
+    } else if (item.key === '2') {
+      console.log('Add your own recipes clicked');
+      setShowCreateRecipeForm(true);
+      setFeaturedClicked(false);
+    } else if (item.key === '3') {
+      console.log('See your saved recipes');
+    }
+  };
 
+  let mainContent;
+  if (showRecipeList === true && !featuredClicked) {
+    mainContent = <RecipeList recipes={recipes} />;
+  } else if (showCreateRecipeForm) {
+    mainContent = (
+      <CreateRecipeForm
+      createRecipe={createRecipe}
+        featuredClicked={featuredClicked}
+        setFeaturedClicked={setFeaturedClicked}
+        featuredRecipe={featuredRecipe}
+        setShowCreateRecipeForm={setShowCreateRecipeForm}
+      />
+    );
+  } else if (featuredClicked) {
+    mainContent = (
+      <RecipeDetails
+        handleHomeClick={handleHomeClick}
+        featuredRecipe={featuredRecipe}
+        setFeaturedClicked={setFeaturedClicked}
+      />
+    );
+  } else {
+    mainContent = (
+      <div className="featured-recipe-container">
+        <FeaturedRecipe
+          handleHomeClick={handleHomeClick}
+          setFeaturedRecipe={setFeaturedRecipe}
+          getFeaturedRecipes={getFeaturedRecipes}
+          featuredRecipe={featuredRecipe}
+          handleFeaturedClick={handleFeaturedClick}
+        />
+      </div>
+    );
+  }
 
 
   return (
@@ -64,33 +117,18 @@ function App() {
       <div className="content-container">
         <Sidebar
           className="sidebar"
+          handleMenuClick={handleMenuClick}
+          showRecipeList={showRecipeList}
+          setShowRecipeList={setShowRecipeList}
           setSingleRecipe={getSingleRecipe}
           recipes={recipes}
           setRecipes={setRecipes}
           handleFeaturedClick={handleFeaturedClick}
         />
-        {featuredClicked ? (
-          <RecipeDetails
-          handleHomeClick={handleHomeClick}
-            featuredRecipe={featuredRecipe}
-            setFeaturedClicked={setFeaturedClicked}
-          />
-        ) : (
-          <div className="featured-recipe-container">
-            <FeaturedRecipe
-            handleHomeClick={handleHomeClick}
-              setFeaturedRecipe={setFeaturedRecipe}
-              getFeaturedRecipes={getFeaturedRecipes}
-              featuredRecipe={featuredRecipe}
-              handleFeaturedClick={handleFeaturedClick}
-            />
-          </div>
-        )}
+        {mainContent}
       </div>
       <Footer />
     </div>
   );
 }
-
-
 export default App;

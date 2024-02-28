@@ -8,15 +8,10 @@ import {
   Button,
 } from "reactstrap";
 
-const RecipeList = ({ recipes, getSingleRecipe }) => {
-  const [selectedRecipe, setSelectedRecipe] = useState(null);
-
-  const handleSeeRecipeClick = (recipe) => {
-    setSelectedRecipe(recipe);
-  };
+const RecipeList = ({ recipes }) => {
   return (
     <>
-      {recipes.map((recipeObject) => {
+      {recipes.map(recipeObject => {
         return (
           <div className="card-flex" key={recipeObject.id}>
             <Card
@@ -41,13 +36,6 @@ const RecipeList = ({ recipes, getSingleRecipe }) => {
           </div>
         );
       })}
-
-      {selectedRecipe && (
-        <RecipeDetails
-          recipe={selectedRecipe}
-          // Pass any other props or data needed by RecipeDetails
-        />
-      )}
     </>
   );
 };

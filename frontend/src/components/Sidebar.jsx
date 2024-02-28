@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import RecipeList from "./RecipeList"
+
 import {
   HeartTwoTone,
   EditTwoTone,
@@ -25,23 +25,11 @@ const items = [
   getItem('Favorites', '3', <HeartTwoTone twoToneColor="#52c41a"/>),
 ];
 
-const Sidebar = ({ recipes, getSingleRecipe }) => {
+const Sidebar = ({handleMenuClick}) => {
   const [collapsed, setCollapsed] = useState(false);
-  const [showRecipeList, setShowRecipeList] = useState(false); 
 
   const toggleCollapsed = () => {
     setCollapsed(!collapsed);
-  };
-
-  const handleMenuClick = (item) => {
-    if (item.key === '1') {
-      console.log('See all recipes clicked');
-      setShowRecipeList(true); 
-    } else if (item.key === '2') {
-      console.log('Add your own recipes clicked');
-    } else if (item.key === '3') {
-      console.log('See your saved recipes');
-    }
   };
 
   return (
@@ -73,10 +61,6 @@ const Sidebar = ({ recipes, getSingleRecipe }) => {
           </Menu.Item>
         ))}
       </Menu>
-
-      {showRecipeList && (
-        <RecipeList recipes={recipes} getSingleRecipe={getSingleRecipe} />
-      )}
     </div>
   );
 };
