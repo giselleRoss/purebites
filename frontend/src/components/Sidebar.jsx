@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import RecipeList from "./RecipeList"
 import {
   HeartTwoTone,
   EditTwoTone,
@@ -17,26 +18,34 @@ function getItem(label, key, icon, children, type) {
   };
 }
 
+
 const items = [
   getItem('See all recipes', '1', <RestTwoTone twoToneColor="#52c41a"/>),
   getItem('Add your own recipes', '2',<EditTwoTone twoToneColor="#52c41a"/>),
   getItem('Favorites', '3', <HeartTwoTone twoToneColor="#52c41a"/>),
 ];
 
-const Sidebar = ({ handleButtonClick }) => {
+const Sidebar = ({ recipes, getSingleRecipe }) => {
   const [collapsed, setCollapsed] = useState(false);
+  const [showRecipeList, setShowRecipeList] = useState(false); 
 
   const toggleCollapsed = () => {
     setCollapsed(!collapsed);
   };
 
   const handleMenuClick = (item) => {
-    handleButtonClick(item.type);
+    if (item.key === '1') {
+      console.log('See all recipes clicked');
+      setShowRecipeList(true); 
+    } else if (item.key === '2') {
+      console.log('Add your own recipes clicked');
+    } else if (item.key === '3') {
+      console.log('See your saved recipes');
+    }
   };
 
   return (
     <div
-      className='menu-bar'
       style={{
         width: 256,
       }}
@@ -56,13 +65,18 @@ const Sidebar = ({ handleButtonClick }) => {
         mode="inline"
         theme="dark"
         inlineCollapsed={collapsed}
+        onClick={({ key }) => handleMenuClick({ key })}
       >
         {items.map((item) => (
-          <Menu.Item key={item.key} icon={item.icon} onClick={() => handleMenuClick(item)}>
+          <Menu.Item key={item.key} icon={item.icon}>
             {item.label}
           </Menu.Item>
         ))}
       </Menu>
+
+      {showRecipeList && (
+        <RecipeList recipes={recipes} getSingleRecipe={getSingleRecipe} />
+      )}
     </div>
   );
 };

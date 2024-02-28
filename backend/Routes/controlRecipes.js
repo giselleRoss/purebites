@@ -116,7 +116,7 @@ const recipesInfo = (pool) => {
       return;
     }
 
-    if (recipe.is_default) {
+    if (recipe.is_default === true) {
       res.status(403).json({ error: "Default recipes cannot be deleted." });
       return;
     }

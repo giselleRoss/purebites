@@ -2,6 +2,7 @@ import React from 'react';
 
 const Header = () => {
   const logoStyle = {
+    fontSize: '2rem',
     width: 'auto',
     height: '40px', 
     marginRight: '10px', 
@@ -12,8 +13,7 @@ const Header = () => {
     padding: '10px',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'flex-start',
-    color: 'white', 
+    justifyContent: 'space-between',
   };
 
   return (

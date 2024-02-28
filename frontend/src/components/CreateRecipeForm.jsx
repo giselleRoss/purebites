@@ -1,101 +1,106 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { Button, Col, Form, FormGroup, Input, Label, Row } from 'reactstrap';
 
-const CreateRecipeForm = () => {
-  const [recipeData, setRecipeData] = useState({
-    name: '',
-    allergens: '',
+const RecipeForm = () => {
+  const [formData, setFormData] = useState({
+    recipeName: '',
     calories: '',
-    ingredients: '',
+    allergens: '',
+    ingredients: [''],
     instructions: '',
-    image: null,
+    imageUrl: '',
   });
 
   const handleChange = (e) => {
-    const { name, value, files } = e.target;
-    setRecipeData((prevData) => ({
-      ...prevData,
-      [name]: files ? files[0] : value,
-    }));
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const formData = new FormData();
-    for (const key in recipeData) {
-      formData.append(key, recipeData[key]);
-    }
-
-    try {
-      const res = await fetch('http://localhost:3000/api/recipes/', {
-        method: 'POST',
-        body: formData,
-      });
-
-      if (res.ok) {
-        console.log('Recipe created successfully');
-        // Optionally, reset the form or handle success in other ways
-      } else {
-        console.log('Failed to create recipe');
-      }
-    } catch (err) {
-      console.error('Error creating recipe:', err);
-    }
+  const handleSubmit = () => {
+    // Handle form submission logic here
+    console.log(formData);
   };
 
   return (
-    <section className="grid md:grid-cols-2 my-12 md:my-12 py-24 gap-4">
-      <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-        <label className="text-black">Name</label>
-        <input
-          type="text"
-          name="name"
-          value={recipeData.name}
-          onChange={handleChange}
-        />
-
-        <label className="text-black">Allergens (optional)</label>
-        <input
-          type="text"
+    <Form>
+      <Row>
+        <Col md={6}>
+          <FormGroup>
+            <Label for="recipeName">Recipe Name</Label>
+            <Input
+              id="recipeName"
+              name="recipeName"
+              placeholder="Enter Recipe Name"
+              type="text"
+              value={formData.recipeName}
+              onChange={handleChange}
+            />
+          </FormGroup>
+        </Col>
+        <Col md={6}>
+          <FormGroup>
+            <Label for="calories">Calories</Label>
+            <Input
+              id="calories"
+              name="calories"
+              placeholder="Enter Calories"
+              type="text"
+              value={formData.calories}
+              onChange={handleChange}
+            />
+          </FormGroup>
+        </Col>
+      </Row>
+      <FormGroup>
+        <Label for="allergens">Allergens</Label>
+        <Input
+          id="allergens"
           name="allergens"
-          value={recipeData.allergens}
-          onChange={handleChange}
-        />
-
-        <label className="text-black">Calories (optional)</label>
-        <input
+          placeholder="Enter Allergens"
           type="text"
-          name="calories"
-          value={recipeData.calories}
+          value={formData.allergens}
           onChange={handleChange}
         />
-
-        <label className="text-black">Ingredients</label>
-        <textarea
+      </FormGroup>
+      <FormGroup>
+        <Label for="ingredients">Ingredients</Label>
+        <Input
+          id="ingredients"
           name="ingredients"
-          value={recipeData.ingredients}
-          onChange={handleChange}
-        ></textarea>
-
-        <label className="text-black">Instructions</label>
-        <textarea
-          name="instructions"
-          value={recipeData.instructions}
-          onChange={handleChange}
-        ></textarea>
-
-        <label className="text-black">Image (optional)</label>
-        <input
-          type="file"
-          name="image"
-          accept="image/*"
+          placeholder="Enter Ingredients"
+          type="text"
+          value={formData.ingredients}
           onChange={handleChange}
         />
-
-        <button type="submit">Create Recipe</button>
-      </form>
-    </section>
+      </FormGroup>
+      <FormGroup>
+        <Label for="instructions">Instructions</Label>
+        <Input
+          id="instructions"
+          name="instructions"
+          placeholder="Enter Instructions"
+          type="text"
+          value={formData.instructions}
+          onChange={handleChange}
+        />
+      </FormGroup>
+      <FormGroup>
+        <Label for="imageUrl">Image URL</Label>
+        <Input
+          id="imageUrl"
+          name="imageUrl"
+          placeholder="Enter Image URL"
+          type="text"
+          value={formData.imageUrl}
+          onChange={handleChange}
+        />
+      </FormGroup>
+      <Button onClick={handleSubmit}>Submit</Button>
+    </Form>
   );
 };
 
-export default CreateRecipeForm;
+export default RecipeForm;
