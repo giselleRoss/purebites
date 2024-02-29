@@ -50,9 +50,23 @@ function App() {
     }
   };
 
-  const createRecipe = (recipe) => {
 
+  const createRecipe = async (recipe) => {
+    try {
+      const res = await fetch(`http://localhost:3000/api/recipes`, {
+        method: "POST", // or 'PUT'
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(recipe),
+      });
+      const data = await res.json();
+      console.log(data);
+    } catch (err) {
+      console.error("Error creating recipe:", err);
+    }
   }
+
 
   const handleFeaturedClick = () => {
     setFeaturedClicked(true);

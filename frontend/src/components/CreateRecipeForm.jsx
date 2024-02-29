@@ -3,14 +3,15 @@ import { Button, Col, Form, FormGroup, Input, Label, Row } from 'reactstrap';
 
 const RecipeForm = ({createRecipe}) => {
   const [newRecipe, setNewRecipe] = useState({
-    name: '',
-    calories: '' ,
-    allergens: '',
-    ingredients: [''],
-    instructions: '',
-    imageUrl: '',
+    name: "",
+    calories: "",
+    allergens: "",
+    ingredients: [],
+    instructions: "",
+    // imageUrl: '',
   })
 
+  
   const handleChange = (e) => {
     setNewRecipe({...newRecipe, [e.target.name]: e.target.value})
   };
@@ -26,13 +27,13 @@ const RecipeForm = ({createRecipe}) => {
       <Row>
         <Col md={6}>
           <FormGroup>
-            <Label for="recipeName">Recipe Name</Label>
+            <Label for="name">Recipe Name</Label>
             <Input
-              id="recipeName"
-              name="recipeName"
+              id="name"
+              name="name"
               placeholder="Enter Recipe Name"
               type="text"
-              value={newRecipe.recipeName}
+              value={newRecipe.name}
               onChange={handleChange}
             />
           </FormGroup>
@@ -84,7 +85,7 @@ const RecipeForm = ({createRecipe}) => {
           onChange={handleChange}
         />
       </FormGroup>
-      <FormGroup>
+      {/* <FormGroup>
         <Label for="imageUrl">Image URL</Label>
         <Input
           id="imageUrl"
@@ -94,7 +95,7 @@ const RecipeForm = ({createRecipe}) => {
           value={newRecipe.imageUrl}
           onChange={handleChange}
         />
-      </FormGroup>
+      </FormGroup> */}
       <Button onClick={handleSubmit}>Submit</Button>
     </Form>
     </div>
