@@ -3,7 +3,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Sidebar from "./components/Sidebar";
 import Footer from "./components/Footer";
 import "./App.css";
-import dotenv from "dotenv";
 import Header from "./components/Header";
 import FeaturedRecipe from "./components/FeaturedRecipe";
 import RecipeList from "./components/RecipeList";
@@ -12,7 +11,6 @@ import CreateRecipeForm from "./components/CreateRecipeForm"
 
 
 function App() {
-  dotenv.config();
   const [recipes, setRecipes] = useState([]);
   const [singleRecipe, setSingleRecipe] = useState(null);
   const [showCreateRecipeForm, setShowCreateRecipeForm] = useState(false);
