@@ -3,13 +3,16 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Sidebar from "./components/Sidebar";
 import Footer from "./components/Footer";
 import "./App.css";
+import dotenv from "dotenv";
 import Header from "./components/Header";
 import FeaturedRecipe from "./components/FeaturedRecipe";
 import RecipeList from "./components/RecipeList";
 import RecipeDetails from "./components/RecipeDetails";
 import CreateRecipeForm from "./components/CreateRecipeForm"
 
+
 function App() {
+  dotenv.config();
   const [recipes, setRecipes] = useState([]);
   const [singleRecipe, setSingleRecipe] = useState(null);
   const [showCreateRecipeForm, setShowCreateRecipeForm] = useState(false);
@@ -17,10 +20,10 @@ function App() {
   const [featuredClicked, setFeaturedClicked] = useState(false);
   const [showRecipeList, setShowRecipeList] = useState(false); 
 
-
+  const BASE_URL = process.env.BACKEND_URL;
   
   const getSingleRecipe = async (id) => {
-    const res = await fetch(`http://localhost:8000/api/recipes/${id}`);
+    const res = await fetch(`/api/recipes/${id}`);
     const data = await res.json();
     console.log("This is the data ", data)
     setSingleRecipe(data);
@@ -28,7 +31,7 @@ function App() {
 
   const getRecipes = async () => {
     try {
-      const res = await fetch(`http://localhost:8000/api/recipes`);
+      const res = await fetch(`${BASE_URL}/api/recipes`);
       console.log(res)
       const data = await res.json();
       console.log("This is the data ", data)
@@ -41,7 +44,7 @@ console.log("These are the recipes;", recipes)
   
   const getFeaturedRecipes = async () => {
     try {
-      const res = await fetch(`http://localhost:8000/api/recipes/:id/featured`);
+      const res = await fetch(`${BASE_URL}/api/recipes/:id/featured`);
       console.log(res)
       const data = await res.json();
       console.log("This is the data ", data)
@@ -59,7 +62,7 @@ console.log("These are the recipes;", recipes)
 
   const createRecipe = async (recipe) => {
     try {
-      const res = await fetch(`http://localhost:8000/api/recipes`, {
+      const res = await fetch(`${BASE_URL}/api/recipes`, {
         method: "POST", // or 'PUT'
         headers: {
           "Content-Type": "application/json",
