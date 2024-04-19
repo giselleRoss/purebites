@@ -18,6 +18,7 @@ function App() {
   const [featuredClicked, setFeaturedClicked] = useState(false);
   const [showRecipeList, setShowRecipeList] = useState(false); 
 
+const BASE_URL = import.meta.VITE_BACKEND_URL;
   
   const getSingleRecipe = async (id) => {
     const res = await fetch(`/api/recipes/${id}`);
@@ -54,7 +55,7 @@ console.log("These are the recipes;", recipes)
 
   const createRecipe = async (recipe) => {
     try {
-      const res = await fetch(`/api/recipes`, {
+      const res = await fetch(`https://purebites-1.onrender.com/api/recipes`, {
         method: "POST", // or 'PUT'
         headers: {
           "Content-Type": "application/json",
