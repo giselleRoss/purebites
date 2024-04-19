@@ -18,31 +18,33 @@ function App() {
   const [showRecipeList, setShowRecipeList] = useState(false); 
 
 
-  useEffect(() => {
-    getRecipes();
-  }, []);
-
   
   const getSingleRecipe = async (id) => {
-    const res = await fetch(`http://localhost:3000/api/recipes/${id}`);
+    const res = await fetch(`http://localhost:8000/api/recipes/${id}`);
     const data = await res.json();
+    console.log("This is the data ", data)
     setSingleRecipe(data);
   };
 
   const getRecipes = async () => {
     try {
-      const res = await fetch(`http://localhost:3000/api/recipes`);
+      const res = await fetch(`http://localhost:8000/api/recipes`);
+      console.log(res)
       const data = await res.json();
+      console.log("This is the data ", data)
       setRecipes(data);
     } catch (err) {
       console.log("Couldn't get data!");
     }
   };
+console.log("These are the recipes;", recipes)
+  
   const getFeaturedRecipes = async () => {
     try {
-      const res = await fetch(`http://localhost:3000/api/recipes/:id/featured`);
+      const res = await fetch(`http://localhost:8000/api/recipes/:id/featured`);
+      console.log(res)
       const data = await res.json();
-      console.log(data);
+      console.log("This is the data ", data)
       setFeaturedRecipe(data);
     } 
     catch (err) {
@@ -51,9 +53,13 @@ function App() {
   };
 
 
+  useEffect(() => {
+    getRecipes();
+  }, []);
+
   const createRecipe = async (recipe) => {
     try {
-      const res = await fetch(`http://localhost:3000/api/recipes`, {
+      const res = await fetch(`http://localhost:8000/api/recipes`, {
         method: "POST", // or 'PUT'
         headers: {
           "Content-Type": "application/json",

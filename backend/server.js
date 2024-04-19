@@ -6,7 +6,7 @@ import { recipesInfo } from "./Routes/controlRecipes.js";
 
 dotenv.config();
 
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 8001;
 
 const pool = new pg.Pool({
     connectionString: process.env.DATABASE_URL,
