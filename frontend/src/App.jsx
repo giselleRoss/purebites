@@ -18,7 +18,6 @@ function App() {
   const [featuredClicked, setFeaturedClicked] = useState(false);
   const [showRecipeList, setShowRecipeList] = useState(false); 
 
-  const BASE_URL = process.env.REACT_APP_BACKEND_URL;
   
   const getSingleRecipe = async (id) => {
     const res = await fetch(`/api/recipes/${id}`);
