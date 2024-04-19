@@ -5,7 +5,6 @@ const recipesInfo = (pool) => {
     const allRecipes = "SELECT * FROM recipes";
     try {
       const data = await pool.query(allRecipes);
-      console.log(data.rows);
       res.json(data.rows);
     } catch (err) {
       next(err);
@@ -19,7 +18,6 @@ const recipesInfo = (pool) => {
     const selectRecipe = "SELECT * FROM recipes WHERE id = $1";
     try {
       const data = await pool.query(selectRecipe, [id]);
-      console.log(data.rows);
       if (data.rows === 0) {
         res.sendStatus(404);
         return;
@@ -35,16 +33,12 @@ const recipesInfo = (pool) => {
     const { name, allergens, instructions } = req.body;
     const ingredients = req.body.ingredients;
     const calories = Number.parseInt(req.body.calories);
-    console.log(
-      `Name: ${name}, Allergens: ${allergens}, Calories: ${calories}, Ingredients: ${ingredients}, Instructions: ${instructions}`
-    );
+ 
     if (Number.isNaN(calories) || !Array.isArray(ingredients)) {
       res.sendStatus(400);
       return;
     }
-    console.log(
-      `Creating recipe with Name: ${name}, Allergens: ${allergens}, Calories: ${calories}, Ingredients: ${ingredients}, Instructions: ${instructions}`
-    );
+
     const newRecipe = `INSERT INTO recipes (name, allergens, calories, ingredients, instructions)
       VALUES ($1, $2, $3, $4, $5)
       RETURNING *`;

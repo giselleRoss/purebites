@@ -22,16 +22,13 @@ function App() {
   const getSingleRecipe = async (id) => {
     const res = await fetch(`/api/recipes/${id}`);
     const data = await res.json();
-    console.log("This is the data ", data)
     setSingleRecipe(data);
   };
 
   const getRecipes = async () => {
     try {
-      const res = await fetch(`/api/recipes`);
-      console.log(res)
+      const res = await fetch(`https://purebites-1.onrender.com/api/recipes`);
       const data = await res.json();
-      console.log("This is the data ", data)
       setRecipes(data);
     } catch (err) {
       console.log("Couldn't get data!");
@@ -41,10 +38,8 @@ console.log("These are the recipes;", recipes)
   
   const getFeaturedRecipes = async () => {
     try {
-      const res = await fetch(`/api/recipes/:id/featured`);
-      console.log(res)
+      const res = await fetch(`https://purebites-1.onrender.com/api/recipes/:id/featured`);
       const data = await res.json();
-      console.log("This is the data ", data)
       setFeaturedRecipe(data);
     } 
     catch (err) {
