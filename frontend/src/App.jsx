@@ -18,7 +18,6 @@ function App() {
   const [featuredClicked, setFeaturedClicked] = useState(false);
   const [showRecipeList, setShowRecipeList] = useState(false); 
 
-  const BASE_URL = process.env.BACKEND_URL;
   
   const getSingleRecipe = async (id) => {
     const res = await fetch(`/api/recipes/${id}`);
@@ -29,7 +28,7 @@ function App() {
 
   const getRecipes = async () => {
     try {
-      const res = await fetch(`${BASE_URL}/api/recipes`);
+      const res = await fetch(`/api/recipes`);
       console.log(res)
       const data = await res.json();
       console.log("This is the data ", data)
@@ -42,7 +41,7 @@ console.log("These are the recipes;", recipes)
   
   const getFeaturedRecipes = async () => {
     try {
-      const res = await fetch(`${BASE_URL}/api/recipes/:id/featured`);
+      const res = await fetch(`/api/recipes/:id/featured`);
       console.log(res)
       const data = await res.json();
       console.log("This is the data ", data)
@@ -60,7 +59,7 @@ console.log("These are the recipes;", recipes)
 
   const createRecipe = async (recipe) => {
     try {
-      const res = await fetch(`${BASE_URL}/api/recipes`, {
+      const res = await fetch(`/api/recipes`, {
         method: "POST", // or 'PUT'
         headers: {
           "Content-Type": "application/json",
